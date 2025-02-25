@@ -111,10 +111,10 @@ export default function MemoryGame() {
           <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
             Created and designed by Novacops and UI Studio ❤️
           </p>
-          <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/tejas_patil.02" target="_blank" rel="noopener noreferrer">
             <Instagram className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
           </a>
-          <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/tejas-patil064/" target="_blank" rel="noopener noreferrer">
             <Linkedin className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
           </a>
         </div>
