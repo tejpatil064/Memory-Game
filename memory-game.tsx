@@ -95,10 +95,25 @@ export default function MemoryGame() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-8 bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-950">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
+        <h1 className="text-4xl font-bold  text-indigo-300 hover:text-indigo-500 transition-colors bg-clip-text">
           Memory Match Game
         </h1>
-
+        {/* Footer Section with Social Media Links */}
+      <footer className="w-full mt-8 text-center">
+        
+          <p className="text-sm font-bold  text-indigo-300 hover:text-indigo-500 transition-colors">
+            Created and designed by Novacops and UI Studio ❤️
+          </p>
+          <div className="flex items-center justify-center space-x-2 mt-1">
+          <div className="flex items-center"></div>
+          <a href="https://www.instagram.com/tejas_patil.02" target="_blank" rel="noopener noreferrer">
+            <Instagram className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
+          </a>
+          <a href="https://www.linkedin.com/in/tejas-patil064/" target="_blank" rel="noopener noreferrer">
+            <Linkedin className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
+          </a>
+        </div>
+      </footer>
         <p className="text-indigo-200">
           Matches found: {matches} of {cards.length / 2}
         </p>
@@ -161,23 +176,7 @@ export default function MemoryGame() {
         Start New Game
       </Button>
 
-      {/* Footer Section with Social Media Links */}
-      <footer className="w-full mt-8 text-center">
-  <div className="flex flex-col items-center justify-center space-y-2">
-    <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
-      Created and designed by Novacops and UI Studio ❤️
-    </p>
-    <div className="flex items-center space-x-4">
-      <a href="https://www.instagram.com/tejas_patil.02" target="_blank" rel="noopener noreferrer">
-        <Instagram className="w-6 h-6 text-indigo-300 hover:text-indigo-500 transition-colors" />
-      </a>
-      <a href="https://www.linkedin.com/in/tejas-patil064/" target="_blank" rel="noopener noreferrer">
-        <Linkedin className="w-6 h-6 text-indigo-300 hover:text-indigo-500 transition-colors" />
-      </a>
-    </div>
-  </div>
-</footer>
-
+      
     </div>
   )
 }
