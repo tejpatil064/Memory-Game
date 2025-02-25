@@ -1,11 +1,12 @@
 "use client"
 import React from 'react';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Heart, Star, Sun, Moon, Cloud, Flower2, TypeIcon as type, LucideIcon } from 'lucide-react'
-import { toast } from "sonner"
+import { Heart, Star, Sun, Moon, Cloud, Flower2, LucideIcon } from 'lucide-react'
+import { toast } from 'react-hot-toast';
+import Confetti from 'react-confetti'; // added for the party pop 
 
 type MemoryCard = {
   id: number
@@ -41,6 +42,7 @@ export default function MemoryGame() {
   const [flippedIndexes, setFlippedIndexes] = useState<number[]>([])
   const [matches, setMatches] = useState(0)
   const [isChecking, setIsChecking] = useState(false)
+  const [gameWon, setGameWon] = useState(false); 
 
   const handleCardClick = (clickedIndex: number) => {
     // Prevent clicking if already checking or card is already matched
@@ -50,11 +52,10 @@ export default function MemoryGame() {
     // Prevent clicking if two cards are already flipped
     if (flippedIndexes.length === 2) return
 
-    // Add clicked card to flipped cards
     const newFlipped = [...flippedIndexes, clickedIndex]
     setFlippedIndexes(newFlipped)
 
-    // If we now have two cards flipped, check for a match
+  
     if (newFlipped.length === 2) {
       setIsChecking(true)
       const [firstIndex, secondIndex] = newFlipped
@@ -62,27 +63,27 @@ export default function MemoryGame() {
       const secondCard = cards[secondIndex]
 
       if (firstCard.icon === secondCard.icon) {
-        // Match found
+      
         setTimeout(() => {
           setCards(cards.map((card, index) => 
             index === firstIndex || index === secondIndex
               ? { ...card, isMatched: true }
               : card
           ))
-          setFlippedIndexes([])
+          setFlippedIndexes([]) 
           setMatches(m => m + 1)
           setIsChecking(false)
           
-          // Check for game completion
+         
           if (matches === (cards.length / 2) - 1) {
-            console.log("you won")
-            toast("🎉 Congratulations! You've found all the matches! 🎈", {
+            setGameWon(true); 
+            toast.success("🎉 Congratulations! You've found all the matches! 🎈", {
               className: "bg-purple-900 text-white border-purple-700"
             })
           }
         }, 500)
       } else {
-        // No match - reset after delay
+        
         setTimeout(() => {
           setFlippedIndexes([])
           setIsChecking(false)
@@ -96,6 +97,7 @@ export default function MemoryGame() {
     setFlippedIndexes([])
     setMatches(0)
     setIsChecking(false)
+    setGameWon(false); 
   }
 
   return (
@@ -104,11 +106,21 @@ export default function MemoryGame() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
           Memory Match Game
         </h1>
-        <p className='text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text'>Created and design by Novacops and UI Studio ❤️</p>
+        <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
+          Created and designed by Novacops and UI Studio ❤️
+        </p>
         
         <p className="text-indigo-200">
           Matches found: {matches} of {cards.length / 2}
         </p>
+
+   
+        {matches === cards.length / 2 && (
+          <>
+            <p className="text-2xl text-green-400 font-bold mt-4">You won! 🎉</p>
+            {gameWon && <Confetti width={window.innerWidth} height={window.innerHeight} />} {}
+          </>
+        )}
       </div>
 
       <div className="grid grid-cols-3 gap-4 md:gap-6 p-6 rounded-xl bg-indigo-950/50 backdrop-blur-sm">
@@ -143,8 +155,8 @@ export default function MemoryGame() {
                   >
                     <card.icon
                       className={`w-12 h-12 ${
-                        card.isMatched 
-                          ? `${card.color} filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]` 
+                        card.isMatched
+                          ? `${card.color} filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]`
                           : card.color
                       }`}
                     />
@@ -156,9 +168,9 @@ export default function MemoryGame() {
         ))}
       </div>
 
-      <Button 
-        onClick={resetGame} 
-        variant="outline" 
+      <Button
+        onClick={resetGame}
+        variant="outline"
         size="lg"
         className="bg-indigo-950 border-indigo-700 hover:bg-indigo-900 hover:border-indigo-500 text-indigo-200 hover:text-indigo-100"
       >
@@ -167,4 +179,3 @@ export default function MemoryGame() {
     </div>
   )
 }
-
