@@ -44,17 +44,13 @@ export default function MemoryGame() {
   const [gameWon, setGameWon] = useState(false); 
 
   const handleCardClick = (clickedIndex: number) => {
-    // Prevent clicking if already checking or card is already matched
     if (isChecking || cards[clickedIndex].isMatched) return
-    // Prevent clicking if card is already flipped
     if (flippedIndexes.includes(clickedIndex)) return
-    // Prevent clicking if two cards are already flipped
     if (flippedIndexes.length === 2) return
 
     const newFlipped = [...flippedIndexes, clickedIndex]
     setFlippedIndexes(newFlipped)
 
-  
     if (newFlipped.length === 2) {
       setIsChecking(true)
       const [firstIndex, secondIndex] = newFlipped
@@ -62,7 +58,6 @@ export default function MemoryGame() {
       const secondCard = cards[secondIndex]
 
       if (firstCard.icon === secondCard.icon) {
-      
         setTimeout(() => {
           setCards(cards.map((card, index) => 
             index === firstIndex || index === secondIndex
@@ -73,7 +68,6 @@ export default function MemoryGame() {
           setMatches(m => m + 1)
           setIsChecking(false)
           
-         
           if (matches === (cards.length / 2) - 1) {
             setGameWon(true); 
             toast.success("🎉 Congratulations! You've found all the matches! 🎈", {
@@ -82,7 +76,6 @@ export default function MemoryGame() {
           }
         }, 500)
       } else {
-        
         setTimeout(() => {
           setFlippedIndexes([]) 
           setIsChecking(false)
@@ -105,25 +98,11 @@ export default function MemoryGame() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
           Memory Match Game
         </h1>
-        
-        {/* Updated this div to include social icons next to the text */}
-        <div className="flex items-center space-x-2 justify-center">
-          <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
-            Created and designed by Novacops and UI Studio ❤️
-          </p>
-          <a href="https://www.instagram.com/tejas_patil.02" target="_blank" rel="noopener noreferrer">
-            <Instagram className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
-          </a>
-          <a href="https://www.linkedin.com/in/tejas-patil064/" target="_blank" rel="noopener noreferrer">
-            <Linkedin className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
-          </a>
-        </div>
-        
+
         <p className="text-indigo-200">
           Matches found: {matches} of {cards.length / 2}
         </p>
 
-   
         {matches === cards.length / 2 && (
           <>
             <p className="text-2xl text-green-400 font-bold mt-4">You won! 🎉</p>
@@ -163,11 +142,7 @@ export default function MemoryGame() {
                     className="absolute inset-0 flex items-center justify-center backface-hidden"
                   >
                     <card.icon
-                      className={`w-12 h-12 ${
-                        card.isMatched
-                          ? `${card.color} filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]`
-                          : card.color
-                      }`}
+                      className={`w-12 h-12 ${card.isMatched ? `${card.color} filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]` : card.color}`}
                     />
                   </motion.div>
                 )}
@@ -185,6 +160,25 @@ export default function MemoryGame() {
       >
         Start New Game
       </Button>
+
+      {/* Footer Section with Social Media Links */}
+      <footer className="w-full mt-8 text-center">
+  <div className="flex flex-col items-center justify-center space-y-2">
+    <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
+      Created and designed by Novacops and UI Studio ❤️
+    </p>
+    <div className="flex items-center space-x-4">
+      <a href="https://www.instagram.com/tejas_patil.02" target="_blank" rel="noopener noreferrer">
+        <Instagram className="w-6 h-6 text-indigo-300 hover:text-indigo-500 transition-colors" />
+      </a>
+      <a href="https://www.linkedin.com/in/tejas-patil064/" target="_blank" rel="noopener noreferrer">
+        <Linkedin className="w-6 h-6 text-indigo-300 hover:text-indigo-500 transition-colors" />
+      </a>
+    </div>
+  </div>
+</footer>
+
     </div>
   )
 }
+
