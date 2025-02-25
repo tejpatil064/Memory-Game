@@ -1,12 +1,11 @@
 "use client"
-import React from 'react';
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Heart, Star, Sun, Moon, Cloud, Flower2, LucideIcon } from 'lucide-react'
+import { Heart, Star, Sun, Moon, Cloud, Flower2, LucideIcon, Instagram, Linkedin } from 'lucide-react'
 import { toast } from 'react-hot-toast';
-import Confetti from 'react-confetti'; // added for the party pop 
+import Confetti from 'react-confetti'; // added for the party pop
 
 type MemoryCard = {
   id: number
@@ -85,7 +84,7 @@ export default function MemoryGame() {
       } else {
         
         setTimeout(() => {
-          setFlippedIndexes([])
+          setFlippedIndexes([]) 
           setIsChecking(false)
         }, 1000)
       }
@@ -94,10 +93,10 @@ export default function MemoryGame() {
 
   const resetGame = () => {
     setCards(createCards())
-    setFlippedIndexes([])
-    setMatches(0)
-    setIsChecking(false)
-    setGameWon(false); 
+    setFlippedIndexes([]) 
+    setMatches(0) 
+    setIsChecking(false) 
+    setGameWon(false);
   }
 
   return (
@@ -106,9 +105,19 @@ export default function MemoryGame() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
           Memory Match Game
         </h1>
-        <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
-          Created and designed by Novacops and UI Studio ❤️
-        </p>
+        
+        {/* Updated this div to include social icons next to the text */}
+        <div className="flex items-center space-x-2 justify-center">
+          <p className="text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-indigo-300 text-transparent bg-clip-text">
+            Created and designed by Novacops and UI Studio ❤️
+          </p>
+          <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer">
+            <Instagram className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
+          </a>
+          <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
+            <Linkedin className="w-5 h-5 text-indigo-300 hover:text-indigo-500 transition-colors" />
+          </a>
+        </div>
         
         <p className="text-indigo-200">
           Matches found: {matches} of {cards.length / 2}
@@ -118,7 +127,7 @@ export default function MemoryGame() {
         {matches === cards.length / 2 && (
           <>
             <p className="text-2xl text-green-400 font-bold mt-4">You won! 🎉</p>
-            {gameWon && <Confetti width={window.innerWidth} height={window.innerHeight} />} {}
+            {gameWon && <Confetti width={window.innerWidth} height={window.innerHeight} />}
           </>
         )}
       </div>
